@@ -2,6 +2,43 @@
 
 Bank-Pilot-MVP fuer das CashEx Home-Delivery-Konzept.
 
+## Aktueller Stand
+
+Das Repo enthaelt jetzt den technischen Start fuer die Pilotbasis:
+
+- Next.js App Router mit TypeScript und Tailwind
+- lokale Seed-Daten fuer Demo-Bank, Filialen, Rollen, Waehrungen und Orders
+- Bankportal, CashEx-Ops-Board, Compliance/Audit und Management-Kennzahlen
+- Statusmaschine mit erlaubten Wechseln
+- Audit-Log fuer kritische Aktionen
+- CSV-Export
+- Supabase/PostgreSQL-Schema als Startpunkt unter `supabase/schema.sql`
+- Vitest-Tests fuer Fachlogik und Playwright-Tests fuer den Pilotflow
+
+## Lokal starten
+
+```bash
+npm install
+npm run dev
+```
+
+Danach im Browser oeffnen:
+
+```bash
+http://localhost:3000
+```
+
+## Pruefen
+
+```bash
+npm run typecheck
+npm run lint
+npm run test
+npm run test:e2e
+```
+
+Hinweis: Wenn Supabase angebunden wird, `.env.example` nach `.env.local` kopieren und echte Projektwerte eintragen.
+
 ## Ziel
 
 Diese Plattform soll Banken ermoeglichen, Fremdwaehrungsbestellungen digital an CashEx zu uebergeben. CashEx verarbeitet die Bestellung im Sorten-Hub, dokumentiert jeden Schritt und erfasst Versand- und Zustellinformationen.
