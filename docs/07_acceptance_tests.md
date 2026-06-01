@@ -27,6 +27,18 @@ Akzeptanz:
 - CashEx sieht operative Details
 - Revision kann nur lesen
 
+## White-Label / Co-Branding Test
+
+Ein Banknutzer sieht die Bestellung im Kontext seiner Bank.
+
+Akzeptanz:
+
+- Bankname ist der Bestellung zugeordnet.
+- Bankreferenz ist sichtbar.
+- CashEx bleibt im MVP als operativer Partner nachvollziehbar.
+- Es gibt keine direkte CashEx-Endkundenzahlung.
+- Kundensupportweg bleibt ueber die Bank definierbar.
+
 ## Rechte-Tests
 
 - Bank-User sieht nur eigene Bank.
@@ -53,4 +65,3 @@ Akzeptanz:
 - Wiederherstellung wurde getestet
 - keine Secrets im Repo
 - `.env` ist nicht versioniert
-

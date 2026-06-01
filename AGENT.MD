@@ -20,6 +20,30 @@ Zielmodell fuer den Start:
 
 > Kunde bestellt Fremdwaehrung bei seiner Bank. Die Bank prueft Kunde, Konto, Zahlung und Compliance. Die Bank bestellt ueber die CashEx-Plattform. CashEx beschafft, prueft, verpackt und versendet versichert an die Endkundenadresse. CashEx rechnet B2B mit der Bank ab.
 
+## White-Label / Co-Branding Logik
+
+CashEx kann als White-Label-Anbieter fuer Banken auftreten.
+
+Definition:
+
+> CashEx macht die operative Arbeit im Hintergrund, aber die Bank bietet den Service gegenueber dem Kunden unter eigener Marke an.
+
+Varianten:
+
+- verdecktes White Label: nur Bankmarke sichtbar
+- Co-Branded: "Ein Service der Bank in Zusammenarbeit mit CashEx"
+
+Empfehlung fuer Start:
+
+> Co-Branded ist fuer den ersten Bank-Pilot realistischer, weil Vertrauen, Haftung, Transparenz und Supportwege sauberer erklaert werden koennen.
+
+Wichtig fuer Produkt und UI:
+
+- Bank bleibt Kundenschnittstelle.
+- CashEx darf im Hintergrund als Fulfillment-/Sortenpartner sichtbar sein, wenn Vertrag und Bank das erlauben.
+- Kundentexte muessen je Bank konfigurierbar sein.
+- Branding sollte spaeter pro Bank konfigurierbar sein, aber nicht im ersten MVP ueberladen werden.
+
 ## Harte Startannahmen
 
 - Bank bleibt Kundenschnittstelle.
@@ -138,3 +162,38 @@ Erst pilotfaehig, dann automatisieren.
 
 Der erste MVP muss nicht perfekt sein, aber er muss kontrollierbar, nachvollziehbar und auditierbar sein.
 
+## Bank-Pilot-MVP Verstaendnis
+
+Der Bank-Pilot-MVP ist nicht als sofort skalierendes Vollprodukt gedacht.
+
+Er soll beweisen:
+
+- Bank versteht und akzeptiert den Prozess.
+- CashEx kann Bestellungen sauber annehmen.
+- Kurse, Gebuehren und Freigaben funktionieren.
+- Sorten koennen beschafft, geprueft, verpackt und versendet werden.
+- Versand zum Endkunden ist versicherbar und nachvollziehbar.
+- Reklamationen, Storno und Differenzen sind beherrschbar.
+- echte Kosten pro Bestellung werden messbar.
+
+Empfohlener Pilot:
+
+- 1 Bankpartner
+- 1 zentrale Bankeinheit oder 3-5 Pilotfilialen
+- 5-8 Kernwaehrungen
+- Laufzeit 3 Monate
+- niedriges Bestelllimit pro Auftrag
+- manuelle CashEx-Freigabe jeder Bestellung
+- keine Endkundenzahlung an CashEx
+- keine Direktkunden-App
+
+Harte Klaerpunkte vor Pilot:
+
+- Darf CashEx direkt an Endkunden liefern?
+- Welche Versicherung deckt den Versand?
+- Wann gehen Eigentum und Gefahr ueber?
+- Was passiert bei Verlust?
+- Wer haftet bei falscher Adresse?
+- Welche Endkundendaten darf CashEx speichern?
+- Wie schnell zahlt die Bank CashEx?
+- Was passiert bei Storno nach Beschaffung?

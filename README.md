@@ -55,6 +55,7 @@ Nicht enthalten:
 | `docs/05_security_compliance.md` | Security-, Datenschutz- und Compliance-Annahmen |
 | `docs/06_mvp_backlog.md` | priorisiertes MVP-Backlog |
 | `docs/07_acceptance_tests.md` | Abnahmetests fuer den Bank-Pilot-MVP |
+| `docs/08_white_label_model.md` | White-Label-/Co-Branding-Modell fuer Bankpartner |
 
 ## Leitprinzipien
 
@@ -64,4 +65,3 @@ Nicht enthalten:
 4. Bankdaten werden sauber getrennt.
 5. Manuelle Kontrolle vor Automatisierung.
 6. Externe Security-, Datenschutz- und Rechtspruefung vor echtem Pilotbetrieb.
-

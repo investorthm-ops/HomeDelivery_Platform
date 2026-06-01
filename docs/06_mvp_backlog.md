@@ -6,6 +6,8 @@
 - Statuslogik finalisieren
 - Datenmodell finalisieren
 - MVP-Scope fixieren
+- White-Label/Co-Branding-Logik fuer Pilot festlegen
+- Bank-spezifische Texte und Referenzen definieren
 - Testdaten definieren
 - Datenschutzannahmen pruefen
 
@@ -24,6 +26,8 @@
 - Bestellmaske
 - Bestelluebersicht
 - Bankfreigabe
+- Bank-spezifische Bestellreferenz anzeigen
+- Co-Branding-Hinweis optional vorbereiten
 - Reklamation melden
 - CSV-Report
 
@@ -54,4 +58,3 @@
 - Audit-Tests
 - Backup-Test
 - Security-Review
-
