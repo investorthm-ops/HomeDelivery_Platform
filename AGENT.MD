@@ -1,6 +1,6 @@
 # AGENT.MD - CashEx HomeDelivery Platform Memory
 
-Stand: 29.05.2026
+Stand: 12.06.2026
 
 Diese Datei ist die Projekt-Memory fuer Codex/Claude Code in diesem Repo.
 
@@ -70,6 +70,41 @@ Bank-Pilot-MVP mit:
 - Reklamationsstatus
 - einfache CSV-Reports
 
+## Aktueller Projektstand
+
+Der erste technische MVP ist als getestete Pilot-Simulation umgesetzt und auf GitHub im Branch `main` gespeichert.
+
+Aktueller Commit:
+
+`c09c2c1 Add bank admin role and lock dependencies`
+
+Umgesetzt:
+
+- Next.js App Router mit TypeScript und Tailwind
+- lokale Seed-Daten fuer Banken, Filialen, Nutzer, Waehrungen und Bestellungen
+- Bankportal mit Bestellformular
+- CashEx-Ops-Orderboard
+- definierte Statuswechsel
+- rollenbasierte Berechtigungslogik
+- bank- und filialbezogene Datensicht
+- Audit-Log fuer kritische Aktionen
+- Reklamation, Versandreferenz und Zustellstatus
+- CSV-Export und einfache Management-Kennzahlen
+- Supabase/PostgreSQL-Zielschema mit RLS-Grundansatz
+- versionierte npm-Abhaengigkeiten durch `package-lock.json`
+
+Verifizierter Stand am 12.06.2026:
+
+- 6 Vitest-Unit-Tests bestanden
+- 2 Playwright-End-to-End-Tests bestanden
+- TypeScript-Typecheck bestanden
+- ESLint bestanden
+- Next.js-Produktions-Build bestanden
+
+Wichtige Grenze:
+
+> Die Anwendung ist aktuell eine funktionierende Pilot-Simulation mit lokalen Seed-Daten. Sie ist noch keine produktive Mehrbenutzeranwendung und noch nicht fuer einen echten Bankbetrieb freigegeben.
+
 ## Nicht im MVP
 
 - Direktkundenportal
@@ -83,7 +118,7 @@ Bank-Pilot-MVP mit:
 
 ## Rollen
 
-- Bank-Admin
+- Bank-Admin (`bank_admin`): bankweite Sicht auf die eigene Bank und Reportexport; keine CashEx-Ops-Rechte
 - Bank-User
 - Bank-Freigeber
 - CashEx-Ops
@@ -115,26 +150,25 @@ MVP-Statuskette:
 1. Entwurf
 2. Eingereicht
 3. In Pruefung
-4. Rueckfrage
-5. Bankfreigabe erforderlich
-6. Bankfreigegeben
-7. CashEx-freigegeben
-8. Beschaffung
-9. Wareneingang
-10. Geprueft
-11. Reserviert
-12. Kommissioniert
-13. Versandbereit
-14. Uebergeben
-15. Zugestellt
-16. Abgeschlossen
-17. Storniert
-18. Reklamiert
-19. Gesperrt
+4. Bankfreigabe erforderlich
+5. Bankfreigegeben
+6. CashEx-freigegeben
+7. Beschaffung
+8. Wareneingang
+9. Geprueft
+10. Reserviert
+11. Kommissioniert
+12. Versandbereit
+13. Uebergeben
+14. Zugestellt
+15. Abgeschlossen
+16. Storniert
+17. Reklamiert
+18. Gesperrt
 
-## Geplanter Stack
+Hinweis: `Rueckfrage` ist fachlich vorgesehen, aber im aktuellen Domainmodell noch nicht als eigener technischer Status umgesetzt.
 
-Empfehlung:
+## Technischer Stack
 
 - Next.js
 - TypeScript
@@ -143,6 +177,29 @@ Empfehlung:
 - Vercel oder vergleichbares Hosting
 - Playwright
 - Vitest
+
+## Naechster Meilenstein
+
+Der naechste Zielzustand ist die echte Supabase-Mehrbenutzer-Pilotbasis:
+
+> Ein Banknutzer meldet sich mit einer echten Rolle an, legt eine Bestellung an und findet sie nach einem Neustart weiterhin in der Datenbank. CashEx bearbeitet denselben Auftrag ueber einen getrennten Zugang. Nutzer einer anderen Bank koennen weder die Bestellung noch zugehoerige Daten sehen.
+
+Dafuer sind als Naechstes erforderlich:
+
+1. Supabase-Projekt anbinden und Schema als echte Migration verwalten.
+2. Supabase Auth mit serverseitig geprueften Sessions einbauen.
+3. Rollen und Bankzuordnung in `profiles` dauerhaft speichern.
+4. Bestellungen, Statusereignisse, Versand und Reklamationen persistent speichern.
+5. RLS fuer alle exponierten Tabellen vollstaendig definieren und mit zwei Banken testen.
+6. Audit-Log serverseitig und append-only schreiben.
+7. Backup-/Restore-Prozess und Hosting vorbereiten.
+
+Noch nicht Teil dieses Meilensteins:
+
+- produktiver Bankbetrieb
+- automatische Bank-, Lieferanten- oder Logistik-APIs
+- Endkundenzahlung an CashEx
+- finale Security-, Datenschutz- oder regulatorische Freigabe
 
 ## Engineering-Regeln
 
