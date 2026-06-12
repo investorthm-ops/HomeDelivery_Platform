@@ -121,8 +121,7 @@ export function CashExMvp({ supabaseConfigured }: Props) {
     });
   }
 
-  function handleCreateOrder(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function createOrderFromForm() {
     if (!canAct(activeUser.role, "create_order") || !activeUser.bankId) {
       return;
     }
@@ -164,6 +163,11 @@ export function CashExMvp({ supabaseConfigured }: Props) {
       orderId: newOrder.id,
       comment: "Bankbestellung digital eingereicht.",
     });
+  }
+
+  function handleCreateOrder(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    createOrderFromForm();
   }
 
   function handlePilotStep() {
@@ -353,9 +357,10 @@ export function CashExMvp({ supabaseConfigured }: Props) {
                 </Field>
               </div>
               <button
+                onClick={createOrderFromForm}
                 disabled={!canAct(activeUser.role, "create_order")}
                 className="button-primary w-full disabled:cursor-not-allowed disabled:opacity-45"
-                type="submit"
+                type="button"
               >
                 Bestellung einreichen
               </button>
@@ -397,7 +402,10 @@ export function CashExMvp({ supabaseConfigured }: Props) {
                         onClick={() => setSelectedOrderId(order.id)}
                         className={`cursor-pointer border-t border-[var(--line)] ${isSelected ? "bg-[var(--cashex-light-blue)]" : "bg-white hover:bg-slate-50"}`}
                       >
-                        <td className="px-3 py-3 font-mono text-xs">{order.reference}</td>
+                        <td className="px-3 py-3">
+                          <div className="font-mono text-xs">{order.reference}</div>
+                          <div className="mt-1 text-xs text-[var(--muted)]">{order.customerReferenceBank}</div>
+                        </td>
                         <td className="px-3 py-3">{bank?.name}</td>
                         <td className="px-3 py-3">
                           {order.foreignAmount.toLocaleString("de-DE")} {order.currencyCode}

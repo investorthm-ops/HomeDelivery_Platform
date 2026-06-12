@@ -40,7 +40,7 @@ create table public.profiles (
   bank_id uuid references public.banks(id),
   branch_id uuid references public.branches(id),
   full_name text not null,
-  role text not null check (role in ('bank_user', 'bank_approver', 'cashex_ops', 'cashex_compliance', 'cashex_management', 'revision')),
+  role text not null check (role in ('bank_admin', 'bank_user', 'bank_approver', 'cashex_ops', 'cashex_compliance', 'cashex_management', 'revision')),
   status text not null default 'active',
   mfa_enabled boolean not null default false,
   last_login_at timestamptz,

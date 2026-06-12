@@ -46,6 +46,13 @@ export const branches: Branch[] = [
 
 export const users: PlatformUser[] = [
   {
+    id: "user-bank-admin",
+    name: "Anna Bankadmin",
+    email: "admin@sparda-pilot.example",
+    role: "bank_admin",
+    bankId: "bank-sparda",
+  },
+  {
     id: "user-bank",
     name: "Nina Bank",
     email: "bank.user@sparda-pilot.example",

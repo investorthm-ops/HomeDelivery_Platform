@@ -12,9 +12,12 @@ test("CashEx Pilotoberflaeche zeigt Bankportal, Ops und Audit", async ({ page })
 test("Bank-User kann eine neue Bestellung einreichen", async ({ page }) => {
   await page.goto("/");
 
-  await page.getByLabel("Bankreferenz").fill("SP-FM-TEST-1000");
+  const bankReference = page.getByLabel("Bankreferenz");
+  await expect(bankReference).toBeEditable();
+  await bankReference.fill("SP-FM-TEST-1000");
+  await expect(bankReference).toHaveValue("SP-FM-TEST-1000");
   await page.getByRole("button", { name: "Bestellung einreichen" }).click();
 
-  await expect(page.getByText("SP-FM-TEST-1000")).toBeVisible();
+  await expect(page.getByRole("table").getByText("SP-FM-TEST-1000")).toBeVisible();
   await expect(page.getByText("Bankbestellung digital eingereicht.")).toBeVisible();
 });

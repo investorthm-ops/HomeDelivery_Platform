@@ -22,6 +22,7 @@ export const orderStatuses = [
 export type OrderStatus = (typeof orderStatuses)[number];
 
 export type Role =
+  | "bank_admin"
   | "bank_user"
   | "bank_approver"
   | "cashex_ops"
@@ -132,6 +133,7 @@ export const statusLabels: Record<OrderStatus, string> = {
 };
 
 export const roleLabels: Record<Role, string> = {
+  bank_admin: "Bank-Admin",
   bank_user: "Bank-User",
   bank_approver: "Bank-Freigeber",
   cashex_ops: "CashEx-Ops",
@@ -193,7 +195,7 @@ export function canAct(role: Role, action: "create_order" | "bank_approve" | "op
     ops_update: ["cashex_ops"],
     block: ["cashex_compliance"],
     read_audit: ["cashex_compliance", "revision", "cashex_management"],
-    export_report: ["bank_user", "bank_approver", "cashex_management", "cashex_compliance"],
+    export_report: ["bank_admin", "bank_user", "bank_approver", "cashex_management", "cashex_compliance"],
   };
 
   return rights[action].includes(role);

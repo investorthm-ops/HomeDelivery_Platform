@@ -21,10 +21,10 @@ pnpm-debug.log*
 test-results/
 playwright-report/
 coverage/
+*.tsbuildinfo
 
 # OS/editor
 .DS_Store
 Thumbs.db
 .idea/
 .vscode/
-
