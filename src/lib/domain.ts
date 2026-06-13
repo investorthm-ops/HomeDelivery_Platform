@@ -36,6 +36,12 @@ export type Bank = {
   legalName: string;
   contractStatus: "pilot_ready" | "draft" | "blocked";
   globalLimitEur: number;
+  // KYB-Felder (optional im In-Memory-Modell, in supabase/schema.sql vorhanden)
+  registerNumber?: string;
+  leiOrBic?: string;
+  bafinOrInstituteStatus?: string;
+  beneficialOwnerNote?: string;
+  escalationContact?: string;
 };
 
 export type Branch = {
@@ -79,11 +85,14 @@ export type Order = {
   shippingFeeEur: number;
   requestedDeliveryDate: string;
   deliveryOption: "standard" | "express";
+  isExpress?: boolean;
+  supplierId?: string;
   customerReferenceBank: string;
   shipmentReference?: string;
   shipmentStatus?: "not_started" | "prepared" | "in_transit" | "delivered";
   complaintStatus?: "open" | "in_review" | "resolved";
   complianceFlag: boolean;
+  riskLevel?: RiskLevel;
   createdAt: string;
   updatedAt: string;
 };
@@ -109,6 +118,92 @@ export type Complaint = {
   status: "open" | "in_review" | "resolved";
   reportedByUserId: string;
   reportedAt: string;
+};
+
+// Compliance-/GwG-Entitaeten (MVP-Scope, Luecken #1-#5 aus der Konzept-Lueckenanalyse).
+// Bewusst leichtgewichtig: keine externe API, Screening/Aggregation als erfasste Eintraege.
+
+export type RiskLevel = "niedrig" | "mittel" | "hoch" | "kritisch";
+
+export type Supplier = {
+  id: string;
+  name: string;
+  legalForm?: string;
+  registerNumber?: string;
+  country: string;
+  contactName?: string;
+  escalationContact?: string;
+  kybStatus: "open" | "in_review" | "cleared" | "blocked";
+  insuranceReference?: string;
+  contractStatus: "draft" | "active" | "terminated";
+  status: "active" | "paused" | "blocked";
+};
+
+export type LogisticsPartner = {
+  id: string;
+  name: string;
+  legalForm?: string;
+  registerNumber?: string;
+  contactName?: string;
+  escalationContact?: string;
+  insuranceReference?: string;
+  trackingCapability: boolean;
+  kybStatus: "open" | "in_review" | "cleared" | "blocked";
+  contractStatus: "draft" | "active" | "terminated";
+  status: "active" | "paused" | "blocked";
+};
+
+export type PartnerScreening = {
+  id: string;
+  partnerType: "bank" | "supplier" | "logistics";
+  partnerId: string;
+  screeningType: "sanction" | "pep" | "negative_list";
+  result: "no_hit" | "hit" | "to_clarify";
+  checkedByUserId: string;
+  checkedAt: string;
+  sourceNote?: string;
+  decisionNote?: string;
+  nextReviewDate?: string;
+};
+
+export type OrderLimit = {
+  id: string;
+  scope: "bank" | "branch" | "currency";
+  scopeId: string;
+  limitType: "single_order" | "monthly_cumulative";
+  thresholdEur: number;
+  requiredAction: "standard" | "plausibility" | "bank_approval" | "compliance_approval" | "monthly_review";
+  active: boolean;
+};
+
+export type OrderAggregate = {
+  id: string;
+  bankId: string;
+  branchId?: string;
+  currencyCode?: string;
+  period: string;
+  orderCount: number;
+  totalEur: number;
+  thresholdReference?: number;
+  flagged: boolean;
+  lastCalculatedAt: string;
+};
+
+export type SuspicionCase = {
+  id: string;
+  orderId?: string;
+  bankId: string;
+  branchId?: string;
+  trigger: string;
+  detectedBy: "system" | "user";
+  detectedByUserId?: string;
+  detectedAt: string;
+  reviewedDocuments?: string;
+  decision?: "approved" | "rejected" | "escalated" | "report_prepared";
+  decidedByUserId?: string;
+  decidedAt?: string;
+  reportReference?: string;
+  noCustomerWarningConfirmed: boolean;
 };
 
 export const statusLabels: Record<OrderStatus, string> = {
@@ -268,4 +363,26 @@ export function toCsv(orders: Order[]) {
   return [header, ...rows]
     .map((row) => row.map((cell) => `"${String(cell).replaceAll('"', '""')}"`).join(","))
     .join("\n");
+}
+
+// Compliance-Regeln (siehe docs/03_data_model.md und Konzept-Datenmodell Kap. 9).
+
+// Partner darf nur freigegeben werden, wenn die juengste relevante Pruefung 'no_hit' ergab.
+export function isPartnerReleasable(
+  partnerType: PartnerScreening["partnerType"],
+  partnerId: string,
+  screenings: PartnerScreening[],
+): boolean {
+  const relevant = screenings
+    .filter((s) => s.partnerType === partnerType && s.partnerId === partnerId)
+    .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt));
+
+  return relevant.length > 0 && relevant[0].result === "no_hit";
+}
+
+// Ein offener Verdachtsfall (ohne Entscheidung oder eskaliert) blockiert Kommissionierung/Versand.
+export function isOrderBlockedBySuspicion(orderId: string, cases: SuspicionCase[]): boolean {
+  return cases.some(
+    (c) => c.orderId === orderId && (c.decision === undefined || c.decision === "escalated"),
+  );
 }
