@@ -31,6 +31,13 @@
 - Reklamation melden
 - CSV-Report
 
+## Phase 2.5 - Partnerstammdaten
+
+- Bank-KYB-Felder (LEI/BIC, Register, BaFin-Status, wB, Eskalationskontakt)
+- Lieferantenverwaltung (suppliers anlegen, pruefen, freigeben)
+- Logistikpartnerverwaltung (logistics_partners anlegen, pruefen, freigeben)
+- Partner-Screening erfassen (Freigabe blockiert ohne Ergebnis)
+
 ## Phase 3 - CashEx-Ops
 
 - Ops-Orderboard
@@ -46,9 +53,13 @@
 - Audit-Log schreiben
 - Audit-Log anzeigen
 - Sperrung
-- einfache Limits
+- gestufte Limits (order_limits, Freigabestufe je Schwelle)
+- kumulierte Aggregation (order_aggregates, Stueckelungs-Flag)
+- Red-Flag-Monitoring (Auffaelligkeitsindikatoren)
+- Verdachtsfall-Workflow (suspicion_cases, blockiert Bestellung)
 - Exportprotokoll
 - Datenschutz-Auskunft
+- Monitoring-Reports (Wochen/Monat: Volumen, Expressquote, Limitnutzung)
 
 ## Phase 5 - Tests und Pilot-Haertung
 
@@ -58,3 +69,10 @@
 - Audit-Tests
 - Backup-Test
 - Security-Review
+
+## Nicht-Ziele (MVP)
+
+- Direktkundenportal, Endkundenzahlung, Bankkernsystem-API
+- automatische Lieferanten-/Logistikschnittstelle, vollautomatische Kurse
+- vollautomatisches AML-/Sanktionsscreening (manuelle Erfassung bleibt im MVP)
+- Rueckkauf/Retouren von Banknoten (eigenes Bargeldherkunfts-Risiko; im Pilot ausgeschlossen)
