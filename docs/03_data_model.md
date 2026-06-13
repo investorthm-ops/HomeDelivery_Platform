@@ -32,7 +32,7 @@ Das MVP-Datenmodell bildet Bankbestellungen, CashEx-Operations, Versand, Audit u
 
 Hinweis Umsetzung: In `supabase/schema.sql` sind `users`, `roles` und `user_roles` als eine Tabelle `profiles` (Supabase-Auth-Pattern) umgesetzt. Die Rolle liegt in `profiles.role`, nicht in `user_metadata`.
 
-Die Tabellen ab `suppliers` schliessen die Compliance-/GwG-Luecken aus dem Konzept-Repo (`../../01_Aktiver_Fokus_B2B_HomeDelivery/01_Konzept/CashEx_MVP_Lueckenanalyse.md`, Luecken #1-#5). Sie sind MVP-Scope. Detailfelder siehe dort und im Konzept-Datenmodell Kap. 9. Noch nicht in `schema.sql` umgesetzt.
+Die Tabellen ab `suppliers` schliessen die Compliance-/GwG-Luecken aus dem Konzept-Repo (`../../01_Aktiver_Fokus_B2B_HomeDelivery/01_Konzept/CashEx_MVP_Lueckenanalyse.md`, Luecken #1-#5). Sie sind MVP-Scope. Detailfelder siehe dort und im Konzept-Datenmodell Kap. 9. In `supabase/schema.sql` und `src/lib/domain.ts` umgesetzt; UI/Seed folgen.
 
 ## Wichtige Regeln
 
